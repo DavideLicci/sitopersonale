@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --primary: #0056b3;
@@ -18,110 +20,413 @@
             --light: #f8f9fa;
             --dark: #212529;
             --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
         }
         body {
             font-family: 'Montserrat', sans-serif;
             color: var(--dark);
             line-height: 1.7;
             background-color: #f5f7fa;
+            overflow-x: hidden;
         }
         .navbar {
             background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
         }
         .navbar-brand {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             color: var(--secondary) !important;
+            font-size: 1.5rem;
+        }
+        .nav-link {
+            position: relative;
+            margin: 0 10px;
+            font-weight: 600;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+        .nav-link:hover:after {
+            width: 100%;
         }
         .hero-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 100px 0 80px;
+            padding: 120px 0 100px;
             margin-bottom: 50px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .content-section {
-            max-width: 900px;
-            margin: 0 auto 50px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            padding: 50px 40px;
-            text-align: justify;
-            font-size: 1.2rem;
-            line-height: 1.9;
-            color: #333;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease forwards;
+        .hero-subtitle {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .section-dark {
+            background-color: var(--secondary);
+            color: white;
         }
         .section-title {
             font-family: 'Playfair Display', serif;
             color: var(--secondary);
+            margin-bottom: 40px;
+            font-size: 2.5rem;
             position: relative;
-            margin-bottom: 30px;
-            font-size: 2rem;
-            transition: color 0.3s ease;
+            display: inline-block;
         }
-        .section-title:hover {
-            color: var(--accent);
+        .section-dark .section-title {
+            color: white;
         }
         .section-title:after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 0;
-            width: 60px;
-            height: 3px;
+            width: 70px;
+            height: 4px;
             background: var(--accent);
+            transition: var(--transition);
         }
-        p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            text-indent: 1.5em;
-            transition: color 0.3s ease;
+        .section-title:hover:after {
+            width: 100px;
         }
-        p:hover {
+        .content-box {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-left: 4px solid var(--accent);
+        }
+        .artist-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+        .artist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        .artist-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        .artist-info {
+            padding: 20px;
+        }
+        .artist-name {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        .genre-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .playlist-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+        .playlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        .playlist-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        .playlist-description {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        .spotify-embed {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-top: 20px;
+        }
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .timeline:before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        .timeline-content {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        .timeline-date {
+            font-weight: 600;
             color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .timeline-item:nth-child(odd) .timeline-content:after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid white;
+        }
+        .timeline-item:nth-child(even) .timeline-content:after {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid white;
+        }
+        .timeline-circle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            top: 15px;
+            right: -10px;
+            z-index: 1;
+        }
+        .timeline-item:nth-child(even) .timeline-circle {
+            left: -10px;
+        }
+        .quote-section {
+            background: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            padding: 100px 0;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+        .quote-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,51,102,0.8);
+        }
+        .quote-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+        .quote-author {
+            font-style: italic;
+            font-size: 1.2rem;
         }
         footer {
             background-color: var(--secondary);
             color: white;
-            padding: 40px 0;
-            margin-top: 60px;
+            padding: 60px 0 30px;
             text-align: center;
             font-size: 1rem;
             letter-spacing: 0.05em;
         }
         .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin: 0 10px;
+            border-radius: 50%;
             transition: var(--transition);
         }
         .social-links a:hover {
-            color: var(--accent);
-            transform: translateY(-3px);
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-20px) translateX(-50%);}
+            60% {transform: translateY(-10px) translateX(-50%);}
+        }
+        @keyframes float {
+            0% {transform: translateY(0px);}
+            50% {transform: translateY(-15px);}
+            100% {transform: translateY(0px);}
+        }
+        .floating {
+            animation: float 4s ease-in-out infinite;
         }
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
-            .content-section {
-                padding: 30px 20px;
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .timeline:before {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            .timeline-circle {
+                left: 21px;
+            }
+            .timeline-item:nth-child(odd) .timeline-content:after,
+            .timeline-item:nth-child(even) .timeline-content:after {
+                left: -10px;
+                border-right: 10px solid white;
+                border-left: 0;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="../index.html">Davide Licci</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -139,7 +444,7 @@
                         <a class="nav-link" href="../Menu/Biografia.html">Biografia</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../Passioni/Passioni.html">Passioni</a>
+                        <a class="nav-link active" href="../Passioni/Passioni.html">Passioni</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../Menu/Progetti.html">Progetti</a>
@@ -151,37 +456,339 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="container">
-            <h1 class="hero-title">Musica</h1>
+        <div class="hero-content container">
+            <h1 class="hero-title" data-aos="fade-down" data-aos-duration="800">La Mia Musica</h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">Un viaggio tra note, emozioni e ricordi che hanno segnato la mia vita</p>
+            <div class="scroll-down" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                <i class="fas fa-chevron-down"></i>
+            </div>
         </div>
     </section>
 
-    <!-- Content Section -->
-    <div class="content-section">
-        <p>La musica è una delle costanti più forti della mia vita. Non è solo una colonna sonora: è un filtro attraverso cui percepisco il mondo, un linguaggio che riesce a dire ciò che a volte non so esprimere. Ogni brano che ascolto diventa una specie di paesaggio mentale, un luogo in cui rifugiarmi, riflettere, ritrovarmi. Per me la musica è uno spazio intimo e personale, che però sa anche aprirmi agli altri.</p>
-        <p>Nel tempo ho sviluppato un gusto musicale preciso, che si muove tra l’indie, l’alternative rock e il lo-fi. Non mi interessano tanto le classifiche o le hit radiofoniche: cerco suoni che mi parlino in modo autentico, che trasmettano qualcosa di vero, anche (e soprattutto) nelle imperfezioni. Amo gli artisti che riescono a raccontare le fragilità, le confusioni, le paranoie della vita quotidiana con un tocco stralunato o malinconico.</p>
-        <p>Uno dei primi che mi ha colpito davvero è stato Mac DeMarco: quel suo stile rilassato, con chitarre riverberate e testi vagamente surreali, è diventato per me sinonimo di introspezione disincantata. Poi è arrivato Alex G, con il suo modo unico di piegare la voce, di sporcare le tracce, di far suonare tutto come se fosse stato registrato in una cameretta, ma con un’urgenza emotiva enorme. Ogni suo album è un puzzle emotivo, un’esperienza quasi cinematografica.</p>
-        <p>Anche i TV Girl mi hanno accompagnato in molti momenti, con il loro sound vintage e ipnotico, pieno di loop, campionamenti e storie d’amore sbagliate. Sono come una radio fuori tempo, che però trasmette sempre qualcosa che ti riguarda da vicino. E poi ci sono i giganti: Radiohead, Arctic Monkeys, Oasis. La capacità dei Radiohead di fondere sperimentazione e malinconia è qualcosa che ammiro profondamente. Ogni loro album è un viaggio che richiede ascolto attento e tempo per decantare.</p>
-        <p>Gli Arctic Monkeys mi hanno fatto scoprire il piacere della scrittura musicale curata, ironica e tagliente. L’album AM è una pietra miliare nella mia personale playlist notturna. Gli Oasis invece sono quel tipo di musica che ti fa venire voglia di camminare a caso per strada con le cuffiette, con Don't Look Back in Anger o Live Forever che ti risuonano dentro come un inno personale.</p>
-        <p>Non mi limito ad ascoltare: spesso costruisco playlist tematiche, quasi come se fossero colonne sonore della mia vita. Ci sono raccolte per i pomeriggi piovosi, per le serate tranquille, per le notti in cui non si dorme e per i viaggi solitari in treno. Mettere insieme i brani è un modo per dare un ordine alle emozioni, per capire meglio cosa sto provando.</p>
-        <p>In futuro mi piacerebbe approfondire anche il lato tecnico della musica: magari imparare a suonare qualcosa, o capire come si costruisce una traccia a livello di produzione. Ma per ora va bene così: la musica resta una cosa mia, personale, preziosa. Una forma d’arte che porto sempre con me, nelle cuffie o nella testa, pronta a cambiare forma a seconda del giorno.</p>
-        <p>E la cosa che amo di più è che non finisce mai. C’è sempre una nuova band da scoprire, una canzone che spunta quando meno te l’aspetti e ti prende per mano. Per me, la musica è questo: un viaggio costante. E non ho nessuna fretta di arrivare.</p>
-    </div>
+    <!-- Intro Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="content-box" data-aos="fade-up">
+                        <p>La musica è una delle costanti più forti della mia vita. Non è solo una colonna sonora: è un filtro attraverso cui percepisco il mondo, un linguaggio che riesce a dire ciò che a volte non so esprimere. Ogni brano che ascolto diventa una specie di paesaggio mentale, un luogo in cui rifugiarmi, riflettere, ritrovarmi. Per me la musica è uno spazio intimo e personale, che però sa anche aprirmi agli altri.</p>
+                        <p>Nel tempo ho sviluppato un gusto musicale preciso, che si muove tra l'indie, l'alternative rock e il lo-fi. Non mi interessano tanto le classifiche o le hit radiofoniche: cerco suoni che mi parlino in modo autentico, che trasmettano qualcosa di vero, anche (e soprattutto) nelle imperfezioni. Amo gli artisti che riescono a raccontare le fragilità, le confusioni, le paranoie della vita quotidiana con un tocco stralunato o malinconico.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artists Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <h2 class="section-title text-center mb-5" data-aos="fade-down">I Miei Artisti Preferiti</h2>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="artist-card">
+                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mac DeMarco" class="artist-img">
+                        <div class="artist-info">
+                            <h3 class="artist-name">Mac DeMarco</h3>
+                            <div>
+                                <span class="genre-badge">Indie Rock</span>
+                                <span class="genre-badge">Jangle Pop</span>
+                                <span class="genre-badge">Lo-fi</span>
+                            </div>
+                            <p class="mt-2">Il suo stile rilassato, con chitarre riverberate e testi vagamente surreali, è diventato per me sinonimo di introspezione disincantata.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="artist-card">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Alex G" class="artist-img">
+                        <div class="artist-info">
+                            <h3 class="artist-name">Alex G</h3>
+                            <div>
+                                <span class="genre-badge">Indie Folk</span>
+                                <span class="genre-badge">Experimental</span>
+                                <span class="genre-badge">Bedroom Pop</span>
+                            </div>
+                            <p class="mt-2">Con il suo modo unico di piegare la voce, di sporcare le tracce, di far suonare tutto come se fosse stato registrato in una cameretta, ma con un'urgenza emotiva enorme.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="artist-card">
+                        <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Radiohead" class="artist-img">
+                        <div class="artist-info">
+                            <h3 class="artist-name">Radiohead</h3>
+                            <div>
+                                <span class="genre-badge">Alternative Rock</span>
+                                <span class="genre-badge">Experimental</span>
+                                <span class="genre-badge">Electronic</span>
+                            </div>
+                            <p class="mt-2">La capacità dei Radiohead di fondere sperimentazione e malinconia è qualcosa che ammiro profondamente. Ogni loro album è un viaggio che richiede ascolto attento.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="artist-card">
+                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Arctic Monkeys" class="artist-img">
+                        <div class="artist-info">
+                            <h3 class="artist-name">Arctic Monkeys</h3>
+                            <div>
+                                <span class="genre-badge">Indie Rock</span>
+                                <span class="genre-badge">Post-Punk</span>
+                                <span class="genre-badge">Alternative</span>
+                            </div>
+                            <p class="mt-2">Mi hanno fatto scoprire il piacere della scrittura musicale curata, ironica e tagliente. L'album AM è una pietra miliare nella mia playlist notturna.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="artist-card">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="TV Girl" class="artist-img">
+                        <div class="artist-info">
+                            <h3 class="artist-name">TV Girl</h3>
+                            <div>
+                                <span class="genre-badge">Indie Pop</span>
+                                <span class="genre-badge">Psychedelic</span>
+                                <span class="genre-badge">Sampling</span>
+                            </div>
+                            <p class="mt-2">Con il loro sound vintage e ipnotico, pieno di loop, campionamenti e storie d'amore sbagliate. Sono come una radio fuori tempo che trasmette sempre qualcosa che ti riguarda.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="artist-card">
+                        <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Oasis" class="artist-img">
+                        <div class="artist-info">
+                            <h3 class="artist-name">Oasis</h3>
+                            <div>
+                                <span class="genre-badge">Britpop</span>
+                                <span class="genre-badge">Rock</span>
+                                <span class="genre-badge">Alternative</span>
+                            </div>
+                            <p class="mt-2">Sono quel tipo di musica che ti fa venire voglia di camminare a caso per strada con le cuffiette, con Don't Look Back in Anger che ti risuona dentro come un inno personale.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Playlists Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title text-center mb-5" data-aos="fade-down">Le Mie Playlist</h2>
+            
+            <div class="row">
+                <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
+                    <div class="playlist-card">
+                        <h3 class="playlist-title">Notti Insonni</h3>
+                        <p class="playlist-description">Per quelle notti in cui il sonno non arriva e la mente vaga tra ricordi e pensieri. Canzoni malinconiche ma non deprimenti, perfette per accompagnare il flusso dei pensieri notturni.</p>
+                        <div class="spotify-embed">
+                            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX3WvGXE8FqYX" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="playlist-card">
+                        <h3 class="playlist-title">Pomeriggi Piovosi</h3>
+                        <p class="playlist-description">Quando la pioggia batte contro i vetri e il mondo sembra sospeso. Chitarre acustiche, melodie dolci e testi introspettivi che si fondono con il suono dell'acqua.</p>
+                        <div class="spotify-embed">
+                            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX3WvGXE8FqYX" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
+                    <div class="playlist-card">
+                        <h3 class="playlist-title">Viaggi in Treno</h3>
+                        <p class="playlist-description">Paesaggi che scorrono veloci oltre il finestrino, sconosciuti che salgono e scendono. Musica che accompagna i viaggi, sia quelli fisici che quelli mentali.</p>
+                        <div class="spotify-embed">
+                            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX3WvGXE8FqYX" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6" data-aos="fade-left" data-aos-delay="400">
+                    <div class="playlist-card">
+                        <h3 class="playlist-title">Energia Mattutina</h3>
+                        <p class="playlist-description">Per iniziare la giornata con il piede giusto. Brani vivaci ma non invadenti, che danno la carica senza essere opprimenti. Il caffè musicale perfetto.</p>
+                        <div class="spotify-embed">
+                            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX3WvGXE8FqYX" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Musical Journey Timeline -->
+    <section class="section section-dark">
+        <div class="container">
+            <h2 class="section-title text-center mb-5" data-aos="fade-down">La Mia Storia Musicale</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="timeline-circle"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2010 - Prime Scoperte</div>
+                        <p>I primi approcci alla musica attraverso la radio e i CD dei miei genitori. Scopro gli Oasis e i Beatles, che diventano la colonna sonora della mia preadolescenza.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-circle"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2014 - L'Esplorazione</div>
+                        <p>Inizio a cercare musica in modo più attivo. Scopro piattaforme come SoundCloud e Bandcamp, entrando in contatto con artisti indipendenti e underground.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="timeline-circle"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2016 - La Svolta</div>
+                        <p>Scopro Mac DeMarco e tutto il mondo dell'indie lo-fi. È una rivelazione: capisco che la musica può essere imperfetta, intima e profondamente personale.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="timeline-circle"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2018 - Approfondimento</div>
+                        <p>Inizio a costruire playlist tematiche e a documentarmi sulla produzione musicale. L'ascolto diventa più critico e consapevole.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="timeline-circle"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2020 - Pandemia e Musica</div>
+                        <p>Durante il lockdown la musica diventa un rifugio ancora più importante. Scopro nuovi generi e artisti, tra cui Alex G, che diventa rapidamente uno dei miei preferiti.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+                    <div class="timeline-circle"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Oggi - Un Viaggio Continuo</div>
+                        <p>La musica resta una costante fondamentale. Continuo a esplorare, scoprire e costruire connessioni emotive attraverso le canzoni che ascolto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="quote-content" data-aos="zoom-in">
+            <div class="quote-text">"
+                Senza la musica la vita sarebbe un errore.
+            "</div>
+            <div class="quote-author">- Friedrich Nietzsche</div>
+        </div>
+    </section>
+
+    <!-- Future Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="content-box" data-aos="fade-up">
+                        <h2 class="section-title">Il Futuro Musicale</h2>
+                        <p>In futuro mi piacerebbe approfondire anche il lato tecnico della musica: magari imparare a suonare qualcosa, o capire come si costruisce una traccia a livello di produzione. Ma per ora va bene così: la musica resta una cosa mia, personale, preziosa. Una forma d'arte che porto sempre con me, nelle cuffie o nella testa, pronta a cambiare forma a seconda del giorno.</p>
+                        <p>E la cosa che amo di più è che non finisce mai. C'è sempre una nuova band da scoprire, una canzone che spunta quando meno te l'aspetti e ti prende per mano. Per me, la musica è questo: un viaggio costante. E non ho nessuna fretta di arrivare.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <h3>Contattami</h3>
-            <div class="social-links">
+            <h3 class="mb-4">Contattami</h3>
+            <div class="social-links mb-4">
                 <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
             <p>© 2025 Davide Licci. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animation
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Scroll down button
+        document.querySelector('.scroll-down').addEventListener('click', function() {
+            window.scrollTo({
+                top: document.querySelector('.section').offsetTop - 70,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 </html>

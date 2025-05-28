@@ -17,7 +17,7 @@
             --accent: #ff6b6b;
             --light: #f8f9fa;
             --dark: #212529;
-            --transition: all 0.3s ease;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         body {
@@ -25,102 +25,146 @@
             color: var(--dark);
             line-height: 1.7;
             background-color: #f5f7fa;
+            overflow-x: hidden;
         }
         
+        /* Navbar minimalista */
         .navbar {
             background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+        
+        .navbar.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
         
         .navbar-brand {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             color: var(--secondary) !important;
+            font-size: 1.5rem;
         }
         
+        /* Hero section con animazione fluida */
         .hero-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 100px 0;
+            padding: 120px 0 100px;
             margin-bottom: 50px;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
         
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        /* Sezioni principali */
+        .container {
+            max-width: 900px;
         }
         
         .section-title {
             font-family: 'Playfair Display', serif;
             color: var(--secondary);
-            position: relative;
+            font-size: 2rem;
             margin-bottom: 30px;
-            transition: color 0.3s ease;
-        }
-        .section-title:hover {
-            color: var(--accent);
+            position: relative;
         }
         
-        .section-title:after {
+        .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -12px;
             left: 0;
             width: 60px;
             height: 3px;
             background: var(--accent);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
         
+        .section-title:hover::after {
+            transform: scaleX(1.5);
+        }
+        
+        /* Card con animazioni sottili */
         .experience-card {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
             padding: 30px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             transition: var(--transition);
-            border-left: 4px solid var(--primary);
+            opacity: 0;
+            transform: translateY(20px);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .experience-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .experience-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
         
+        /* Icone animate */
         .icon-box {
             width: 60px;
             height: 60px;
-            background: rgba(0, 86, 179, 0.1);
-            border-radius: 50%;
+            background: rgba(0, 86, 179, 0.08);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
             color: var(--primary);
             font-size: 1.5rem;
+            transition: var(--transition);
         }
         
+        .experience-card:hover .icon-box {
+            background: rgba(0, 86, 179, 0.15);
+            transform: rotate(5deg) scale(1.1);
+        }
+        
+        /* Timeline migliorata */
         .timeline {
             position: relative;
             padding-left: 30px;
         }
         
-        .timeline:before {
+        .timeline::before {
             content: '';
             position: absolute;
             left: 7px;
             top: 0;
             bottom: 0;
             width: 2px;
-            background: var(--primary);
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
         }
         
         .timeline-item {
             position: relative;
             margin-bottom: 30px;
+            padding-left: 20px;
         }
         
-        .timeline-item:before {
+        .timeline-item::before {
             content: '';
             position: absolute;
             left: -30px;
@@ -128,93 +172,133 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: var(--accent);
+            background: white;
             border: 3px solid var(--primary);
+            box-shadow: 0 0 0 2px white;
         }
         
         .timeline-date {
             font-weight: 600;
             color: var(--primary);
+            display: inline-block;
+            margin-bottom: 5px;
         }
         
+        /* Highlight box con effetto */
         .highlight-box {
-            background: rgba(255, 107, 107, 0.1);
-            border-left: 4px solid var(--accent);
+            background: rgba(255, 107, 107, 0.05);
+            border-left: 3px solid var(--accent);
             padding: 20px;
-            border-radius: 0 5px 5px 0;
+            border-radius: 0 6px 6px 0;
             margin: 30px 0;
+            transition: var(--transition);
         }
         
+        .highlight-box:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        /* Pulsanti con effetto */
         .btn-custom {
             background-color: var(--primary);
             color: white;
-            padding: 12px 25px;
+            padding: 12px 28px;
             border-radius: 50px;
             font-weight: 600;
             transition: var(--transition);
             border: none;
+            position: relative;
+            overflow: hidden;
         }
         
         .btn-custom:hover {
             background-color: var(--secondary);
-            color: white;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 7px 20px rgba(0, 86, 179, 0.2);
         }
         
+        .btn-custom::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            border-radius: 50%;
+            transform: scale(1, 1) translate(-50%, -50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn-custom:hover::after {
+            animation: ripple 0.6s ease-out;
+        }
+        
+        /* Footer pulito */
         footer {
             background-color: var(--secondary);
             color: white;
-            padding: 30px 0;
-            margin-top: 50px;
+            padding: 50px 0 30px;
+            margin-top: 80px;
+            clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
         }
         
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.2rem;
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Animazioni */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
         
-        .navbar-nav .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
         }
         
-        .navbar-nav .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.3rem;
+            }
+            
+            .hero-section {
+                padding: 100px 0 80px;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            }
+            
+            footer {
+                clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+            }
         }
-        
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-link.active {
-            color: var(--accent);
-        }
-        
-        .navbar-nav .nav-link:hover::after,
-        .navbar-nav .nav-link.active::after {
-            width: 100%;
-        }
-        
-        .navbar-toggler {
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-        
-        .navbar-toggler:hover {
-            transform: scale(1.1);
-            filter: brightness(1.2);
-        }
-        
-        </style>
+    </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">Il Mio Portfolio</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -246,7 +330,7 @@
     <section class="hero-section">
         <div class="container text-center">
             <h1 class="hero-title">Esperienza PCTO – Loccioni</h1>
-            <p class="lead">Un percorso di crescita personale e professionale</p>
+            <p class="hero-subtitle">Un percorso di crescita personale e professionale</p>
         </div>
     </section>
 
@@ -271,7 +355,9 @@
                 </div>
                 <h2 class="section-title">🧠 Obiettivi e ruolo</h2>
                 <p>Il mio ruolo non è stato solo tecnico, ma anche organizzativo: ho avuto la possibilità di essere Project Manager del mio gruppo, coordinando il lavoro dei miei compagni nella realizzazione della parte Pick and Place di una macchina da test per iniettori automobilistici.</p>
-                <p>È stato un compito impegnativo, ma anche incredibilmente stimolante: ho dovuto gestire tempi, compiti e comunicazione interna, imparando cosa significa davvero lavorare in squadra con un obiettivo comune.</p>
+                <div class="highlight-box">
+                    <p>È stato un compito impegnativo, ma anche incredibilmente stimolante: ho dovuto gestire tempi, compiti e comunicazione interna, imparando cosa significa davvero lavorare in squadra con un obiettivo comune.</p>
+                </div>
             </div>
         </section>
 
@@ -297,7 +383,6 @@
                         <p>Seconda fase di lavoro diretto sul progetto</p>
                     </div>
                 </div>
-                <p class="mt-3">Questo approccio graduale mi ha permesso di consolidare le competenze prima di metterle davvero in pratica.</p>
             </div>
         </section>
 
@@ -308,11 +393,8 @@
                     <i class="fas fa-heart"></i>
                 </div>
                 <h2 class="section-title">🤝 Cosa mi ha colpito</h2>
-                <div class="highlight-box">
-                    <p>Oltre all'aspetto tecnico, ciò che più mi ha colpito è stato l'ambiente: il lavoro di squadra, la collaborazione e la comunicazione costante sono stati centrali.</p>
-                </div>
+                <p>Oltre all'aspetto tecnico, ciò che più mi ha colpito è stato l'ambiente: il lavoro di squadra, la collaborazione e la comunicazione costante sono stati centrali.</p>
                 <p>Mi ha profondamente colpito la storia dell'azienda, fondata su valori come la fiducia, il rispetto e il senso di appartenenza. Entrare in Loccioni significava sentirsi parte di una comunità, quasi di una famiglia.</p>
-                <p>Ogni incontro era un'occasione per imparare, ma anche per costruire legami: ho stretto nuove amicizie e mi sono sentito davvero coinvolto.</p>
             </div>
         </section>
 
@@ -324,11 +406,20 @@
                 </div>
                 <h2 class="section-title">🌱 Cosa ho imparato</h2>
                 <p>Questa esperienza mi ha lasciato tanto, sia sul piano personale che professionale.</p>
-                <ul class="list-group list-group-flush mb-3">
-                    <li class="list-group-item">Ho acquisito fiducia in me stesso, imparando a gestire ruoli di responsabilità</li>
-                    <li class="list-group-item">Ho sviluppato competenze trasversali come l'organizzazione, la leadership e la comunicazione</li>
-                    <li class="list-group-item">Ho capito che la tecnologia ha senso solo se è al servizio delle persone, e non fine a sé stessa</li>
-                </ul>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="p-3 bg-light rounded h-100">
+                            <h4 class="h5"><i class="fas fa-user-tie me-2 text-primary"></i>Responsabilità</h4>
+                            <p>Ho imparato a gestire ruoli importanti e prendere decisioni</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="p-3 bg-light rounded h-100">
+                            <h4 class="h5"><i class="fas fa-users me-2 text-primary"></i>Teamwork</h4>
+                            <p>Ho capito l'importanza della collaborazione e comunicazione</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -340,9 +431,13 @@
                 </div>
                 <h2 class="section-title">🎯 Collegamento al mio futuro</h2>
                 <p>L'esperienza in Loccioni ha rafforzato la mia volontà di proseguire su un percorso tecnico-scientifico in cui la componente umana sia centrale.</p>
-                <p>Sto infatti valutando facoltà come Ingegneria Biomedica o Medicina, proprio perché credo in un futuro dove la scienza e la tecnologia siano strumenti per migliorare concretamente la vita degli altri.</p>
                 <div class="text-center mt-4">
-                    <a href="../index.html" class="btn btn-custom">Torna alla Home</a>
+                    <a href="../index.html" class="btn btn-custom me-2">
+                        <i class="fas fa-home me-1"></i> Torna alla Home
+                    </a>
+                    <a href="Progetti.html" class="btn btn-outline-primary">
+                        <i class="fas fa-code me-1"></i> Vedi Progetti
+                    </a>
                 </div>
             </div>
         </section>
@@ -353,14 +448,52 @@
         <div class="container">
             <p>© 2025 Il Mio Portfolio. Tutti i diritti riservati.</p>
             <div class="social-links mt-3">
-                <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="text-white mx-2"><i class="fab fa-github"></i></a>
-                <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Animazione scroll navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Animazione card al scroll
+        const animateOnScroll = function() {
+            const cards = document.querySelectorAll('.experience-card');
+            cards.forEach(card => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (cardPosition < screenPosition) {
+                    card.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Smooth scroll per i link
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>

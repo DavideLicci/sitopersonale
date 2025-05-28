@@ -41,23 +41,90 @@
         .hero-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 100px 0 80px;
+            padding: 120px 0 100px;
             margin-bottom: 50px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.15;
+            z-index: 0;
         }
         
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero-section p {
+            position: relative;
+            z-index: 1;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .bio-section {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 60px;
             margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .bio-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .bio-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
         }
         
         .section-title {
@@ -65,11 +132,12 @@
             color: var(--secondary);
             position: relative;
             margin-bottom: 30px;
-            transition: color 0.3s ease;
+            transition: all 0.5s ease;
         }
         
         .section-title:hover {
             color: var(--accent);
+            letter-spacing: 1px;
         }
         
         .section-title:after {
@@ -80,36 +148,106 @@
             width: 60px;
             height: 3px;
             background: var(--accent);
+            transition: width 0.5s ease;
+        }
+        
+        .section-title:hover:after {
+            width: 100px;
         }
         
         .highlight-phrase {
             font-style: italic;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--secondary);
-            border-left: 3px solid var(--accent);
-            padding-left: 20px;
-            margin: 30px 0;
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin: 40px 0;
+            background-color: rgba(255, 107, 107, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .highlight-phrase::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            color: rgba(0, 86, 179, 0.1);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+        
+        .highlight-phrase:hover {
+            transform: scale(1.01);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .greek-word {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--primary);
             display: block;
-            margin: 20px 0;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+            padding: 15px 0;
+        }
+        
+        .greek-word::before, .greek-word::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .greek-word::before {
+            left: calc(50% - 70px);
+        }
+        
+        .greek-word::after {
+            right: calc(50% - 70px);
         }
         
         .passion-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .passion-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: rgba(0, 86, 179, 0.03);
         }
         
         .passion-icon {
             color: var(--accent);
-            font-size: 1.5rem;
-            margin-right: 15px;
+            font-size: 1.8rem;
+            margin-right: 20px;
             margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .passion-item:hover .passion-icon {
+            transform: scale(1.2);
+            color: var(--primary);
+        }
+        
+        .passion-item h4 {
+            color: var(--secondary);
+            transition: color 0.3s ease;
+        }
+        
+        .passion-item:hover h4 {
+            color: var(--primary);
         }
         
         .btn-custom {
@@ -120,6 +258,21 @@
             font-weight: 600;
             transition: var(--transition);
             border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+            z-index: -1;
         }
         
         .btn-custom:hover {
@@ -129,33 +282,56 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
+        .btn-custom:hover::before {
+            width: 100%;
+        }
+        
         footer {
-            background-color: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, #001a33 100%);
             color: white;
-            padding: 30px 0;
-            margin-top: 50px;
+            padding: 50px 0;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            clip-path: polygon(0 0, 100% 0, 100% 20%, 0 100%);
         }
         
         .social-links a {
             color: white;
-            font-size: 1.3rem;
-            margin: 0 10px;
-            transition: var(--transition);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         .social-links a:hover {
-            color: var(--accent);
-            transform: translateY(-3px);
+            color: white;
+            background-color: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.2rem;
-            }
-            
-            .bio-section {
-                padding: 30px 20px;
-            }
+        /* Paragraph hover effect */
+        .bio-section p {
+            transition: color 0.3s ease;
+        }
+        
+        .bio-section p:hover {
+            color: var(--secondary);
         }
         
         .navbar-nav .nav-link {
@@ -192,6 +368,58 @@
             transform: scale(1.1);
             filter: brightness(1.2);
         }
+        
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .bio-section {
+                padding: 40px 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .bio-section {
+                padding: 30px 20px;
+                border-radius: 0;
+            }
+            
+            .highlight-phrase {
+                font-size: 1.1rem;
+                padding: 15px;
+            }
+            
+            .greek-word {
+                font-size: 1.5rem;
+            }
+            
+            .greek-word::before, 
+            .greek-word::after {
+                width: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 80px 0 60px;
+            }
+            
+            .passion-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .passion-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -211,7 +439,7 @@
                         <a class="nav-link" href="PCTO.html">PCTO</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Biografia.html">Biografia</a>
+                        <a class="nav-link active" href="Biografia.html">Biografia</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../Passioni/Passioni.html">Passioni</a>

@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         :root {
             --primary: #0056b3;
@@ -24,52 +26,112 @@
             color: var(--dark);
             line-height: 1.7;
             background-color: #f5f7fa;
+            overflow-x: hidden;
         }
         .navbar {
             background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
         }
         .navbar-brand {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             color: var(--secondary) !important;
+            transition: var(--transition);
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav-link {
+            position: relative;
+            transition: var(--transition);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .nav-link.active {
+            font-weight: 600;
+            color: var(--primary) !important;
         }
         .hero-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 100px 0 80px;
+            padding: 120px 0 100px;
             margin-bottom: 50px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .hero-subtitle {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
         }
         .content-section {
             max-width: 900px;
             margin: 0 auto 50px;
             background: white;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
             padding: 50px 40px;
             text-align: justify;
             font-size: 1.2rem;
             line-height: 1.9;
             color: #333;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
         }
         .section-title {
             font-family: 'Playfair Display', serif;
             color: var(--secondary);
             position: relative;
             margin-bottom: 30px;
-            font-size: 2rem;
+            font-size: 2.2rem;
             transition: color 0.3s ease;
         }
         .section-title:hover {
             color: var(--accent);
         }
-        .section-title:after {
+        .section-title::after {
             content: '';
             position: absolute;
             bottom: -10px;
@@ -77,48 +139,157 @@
             width: 60px;
             height: 3px;
             background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .section-title:hover::after {
+            width: 100px;
         }
         p {
             font-size: 1.1rem;
             margin-bottom: 20px;
-            text-indent: 1.5em;
             transition: color 0.3s ease;
         }
-        p:hover {
-            color: var(--accent);
+        .film-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+        .film-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .film-poster {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .film-card:hover .film-poster {
+            transform: scale(1.05);
+        }
+        .film-info {
+            padding: 20px;
+        }
+        .film-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        .film-director {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .film-description {
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .quote-section {
+            background: linear-gradient(rgba(0, 84, 179, 0.8), rgba(0, 51, 102, 0.9)), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            color: white;
+            padding: 80px 0;
+            margin: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        .quote-author {
+            font-style: italic;
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
         footer {
             background-color: var(--secondary);
             color: white;
-            padding: 40px 0;
-            margin-top: 60px;
+            padding: 60px 0 30px;
+            margin-top: 80px;
             text-align: center;
             font-size: 1rem;
             letter-spacing: 0.05em;
+            position: relative;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
         }
         .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin: 0 10px;
+            border-radius: 50%;
             transition: var(--transition);
         }
         .social-links a:hover {
-            color: var(--accent);
-            transform: translateY(-3px);
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+            color: white;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
         }
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
             .content-section {
                 padding: 30px 20px;
+            }
+            .quote-text {
+                font-size: 1.4rem;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="../index.html">Davide Licci</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -151,35 +322,140 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="container">
-            <h1 class="hero-title">Cinema</h1>
+        <div class="container hero-content animate__animated animate__fadeIn">
+            <h1 class="hero-title animate__animated animate__fadeInDown">La Mia Passione per il Cinema</h1>
+            <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">Dove la realtà incontra la magia e le storie prendono vita</p>
         </div>
     </section>
 
-    <!-- Content Section -->
-    <div class="content-section">
-        <p>Il cinema è sempre stato, per me, più di un semplice passatempo. È un rifugio, una lente attraverso cui osservare il mondo, un’arte capace di suscitare emozioni che spesso le parole non riescono a contenere. Fin da piccolo sono rimasto affascinato da quella magia che trasforma una sequenza di immagini in una storia capace di farci ridere, piangere, riflettere o sognare. Quando guardo un film, non lo faccio mai distrattamente: entro nella storia, cerco di coglierne i dettagli, i silenzi, i simboli nascosti.</p>
-        <p>Nel tempo, ho sviluppato un approccio quasi "critico" alla visione dei film. Mi piace analizzare come regia, sceneggiatura, fotografia e colonna sonora collaborino per costruire significato. Un'inquadratura non è mai solo un'inquadratura, un silenzio spesso parla più di cento dialoghi. I registi che ammiro di più sono quelli che riescono a raccontare l'invisibile: Michel Gondry, con il suo tocco surreale e poetico; Charlie Kaufman, che scava nell’identità e nella memoria; Tim Burton, capace di costruire mondi onirici pieni di malinconia.</p>
-        <p>Alcuni film mi hanno letteralmente cambiato. Eternal Sunshine of the Spotless Mind, ad esempio, mi ha insegnato che anche i ricordi dolorosi meritano di essere custoditi. Donnie Darko mi ha fatto riflettere sulla percezione del tempo e della realtà. Il favoloso mondo di Amélie mi ha mostrato come la gentilezza e l’immaginazione possano trasformare la vita quotidiana in un’avventura.</p>
-        <p>Apprezzo il cinema d’autore, ma amo anche i grandi film d’animazione, dai capolavori Pixar alle opere dello Studio Ghibli. Trovo che l’animazione sia uno dei linguaggi più liberi, capaci di unire estetica, filosofia e racconto. La città incantata è una delle opere che rivedo più spesso: ogni volta scopro un dettaglio nuovo, un significato diverso, un’emozione più profonda.</p>
-        <p>Credo che il cinema sia anche uno specchio del nostro tempo. Mi incuriosisce vedere come i film affrontino temi sociali, etici, psicologici e tecnologici. Ultimamente mi sto avvicinando anche al documentario e al cinema europeo contemporaneo, alla ricerca di sguardi alternativi e voci fuori dal coro.</p>
-        <p>Il mio sogno? Un giorno magari scrivere o co-creare un cortometraggio. Per ora, continuo ad alimentare la mia passione guardando, riflettendo, consigliando film agli altri e lasciandomi ispirare da tutto ciò che questo mondo ha da offrire.</p>
-    </div>
+    <!-- About Cinema Section -->
+    <section class="container">
+        <div class="content-section animate__animated animate__fadeIn animate__delay-1s">
+            <h2 class="section-title">Il Cinema nella Mia Vita</h2>
+            <p>Il cinema è sempre stato, per me, più di un semplice passatempo. È un rifugio, una lente attraverso cui osservare il mondo, un'arte capace di suscitare emozioni che spesso le parole non riescono a contenere. Fin da piccolo sono rimasto affascinato da quella magia che trasforma una sequenza di immagini in una storia capace di farci ridere, piangere, riflettere o sognare.</p>
+            <p>Quando guardo un film, non lo faccio mai distrattamente: entro nella storia, cerco di coglierne i dettagli, i silenzi, i simboli nascosti. Mi piace analizzare come regia, sceneggiatura, fotografia e colonna sonora collaborino per costruire significato. Un'inquadratura non è mai solo un'inquadratura, un silenzio spesso parla più di cento dialoghi.</p>
+        </div>
+    </section>
+
+    <!-- Impactful Films Section -->
+    <section class="container">
+        <div class="content-section animate__animated animate__fadeIn">
+            <h2 class="section-title">Film che Mi Hanno Cambiato</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="film-card">
+                        <img src="https://m.media-amazon.com/images/M/MV5BMTY4NzcwODg3Nl5BMl5BanBnXkFtZTcwNTEwOTMyMw@@._V1_.jpg" alt="Eternal Sunshine of the Spotless Mind" class="film-poster">
+                        <div class="film-info">
+                            <h3 class="film-title">Eternal Sunshine of the Spotless Mind</h3>
+                            <p class="film-director">Michel Gondry (2004)</p>
+                            <p class="film-description">Questo film mi ha insegnato che anche i ricordi dolorosi meritano di essere custoditi, perché fanno parte di ciò che siamo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="film-card">
+                        <img src="https://m.media-amazon.com/images/M/MV5BZjZlZDlkYTktMmU1My00ZDBiLWFlNjEtYTBhNjVhOTM4ZjJjXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" alt="Donnie Darko" class="film-poster">
+                        <div class="film-info">
+                            <h3 class="film-title">Donnie Darko</h3>
+                            <p class="film-director">Richard Kelly (2001)</p>
+                            <p class="film-description">Un viaggio psichedelico che mi ha fatto riflettere sulla percezione del tempo, del destino e della realtà stessa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="container animate__animated animate__fadeIn">
+            <blockquote>
+                <p class="quote-text">"Il cinema non è un mestiere. È un'arte. Non è un team sport. È individuale. È un sogno che fai da sveglio."</p>
+                <footer class="quote-author">Martin Scorsese</footer>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- Future Projects Section -->
+    <section class="container">
+        <div class="content-section animate__animated animate__fadeIn">
+            <h2 class="section-title">Progetti Futuri</h2>
+            <p>Il mio sogno cinematografico è quello di un giorno scrivere o co-creare un cortometraggio. Mi affascina l'idea di poter condensare emozioni e storie in pochi minuti intensi, lasciando allo spettatore qualcosa da portare con sé.</p>
+            <p>Sto esplorando anche il mondo del documentario e del cinema europeo contemporaneo, alla ricerca di sguardi alternativi e voci fuori dal coro. Credo che il cinema sia uno specchio del nostro tempo e voglio contribuire a questa riflessione collettiva.</p>
+            <p>Per ora, continuo ad alimentare la mia passione guardando, riflettendo, consigliando film agli altri e lasciandomi ispirare da tutto ciò che questo mondo magico ha da offrire.</p>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="animate__animated animate__fadeInUp">
         <div class="container">
             <h3>Contattami</h3>
-            <div class="social-links">
+            <div class="social-links mt-4 mb-4">
                 <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
             <p>© 2025 Davide Licci. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate__animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const animation = entry.target.getAttribute('data-animation');
+                        entry.target.classList.add('animate__fadeInUp');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
 </body>
 </html>
