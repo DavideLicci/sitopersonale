@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esperienza PCTO - Loccioni</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #003366;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            background-color: #f5f7fa;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--secondary) !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 50px;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            position: relative;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+        }
+        .section-title:hover {
+            color: var(--accent);
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .experience-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 86, 179, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--primary);
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .highlight-box {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 0 5px 5px 0;
+            margin: 30px 0;
+        }
+        
+        .btn-custom {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+        }
+        
+        .btn-custom:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+        }
+        
+        .navbar-nav .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--accent);
+        }
+        
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .navbar-toggler {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        
+        .navbar-toggler:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+        
+        </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Il Mio Portfolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="PCTO.html">PCTO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Biografia.html">Biografia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Passioni/Passioni.html">Passioni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Progetti.html">Progetti</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="hero-title">Esperienza PCTO – Loccioni</h1>
+            <p class="lead">Un percorso di crescita personale e professionale</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Dove l'ho svolto -->
+        <section class="mb-5">
+            <div class="experience-card">
+                <div class="icon-box">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h2 class="section-title">📍 Dove l'ho svolto</h2>
+                <p>Durante il mio percorso scolastico ho svolto il PCTO presso Loccioni, un'azienda del territorio che mi ha colpito sin da subito, non solo per l'alto livello tecnologico dei progetti, ma soprattutto per la storia e il valore umano che porta con sé.</p>
+            </div>
+        </section>
+
+        <!-- Obiettivi e ruolo -->
+        <section class="mb-5">
+            <div class="experience-card">
+                <div class="icon-box">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h2 class="section-title">🧠 Obiettivi e ruolo</h2>
+                <p>Il mio ruolo non è stato solo tecnico, ma anche organizzativo: ho avuto la possibilità di essere Project Manager del mio gruppo, coordinando il lavoro dei miei compagni nella realizzazione della parte Pick and Place di una macchina da test per iniettori automobilistici.</p>
+                <p>È stato un compito impegnativo, ma anche incredibilmente stimolante: ho dovuto gestire tempi, compiti e comunicazione interna, imparando cosa significa davvero lavorare in squadra con un obiettivo comune.</p>
+            </div>
+        </section>
+
+        <!-- Struttura del percorso -->
+        <section class="mb-5">
+            <div class="experience-card">
+                <div class="icon-box">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h2 class="section-title">🕒 Struttura del percorso</h2>
+                <p>L'esperienza si è articolata in più fasi:</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Marzo - Maggio</div>
+                        <p>Incontri ogni martedì e giovedì per la preparazione tecnica</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Fine maggio - 8 giugno</div>
+                        <p>Prima fase operativa in azienda</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">17 - 30 settembre</div>
+                        <p>Seconda fase di lavoro diretto sul progetto</p>
+                    </div>
+                </div>
+                <p class="mt-3">Questo approccio graduale mi ha permesso di consolidare le competenze prima di metterle davvero in pratica.</p>
+            </div>
+        </section>
+
+        <!-- Cosa mi ha colpito -->
+        <section class="mb-5">
+            <div class="experience-card">
+                <div class="icon-box">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2 class="section-title">🤝 Cosa mi ha colpito</h2>
+                <div class="highlight-box">
+                    <p>Oltre all'aspetto tecnico, ciò che più mi ha colpito è stato l'ambiente: il lavoro di squadra, la collaborazione e la comunicazione costante sono stati centrali.</p>
+                </div>
+                <p>Mi ha profondamente colpito la storia dell'azienda, fondata su valori come la fiducia, il rispetto e il senso di appartenenza. Entrare in Loccioni significava sentirsi parte di una comunità, quasi di una famiglia.</p>
+                <p>Ogni incontro era un'occasione per imparare, ma anche per costruire legami: ho stretto nuove amicizie e mi sono sentito davvero coinvolto.</p>
+            </div>
+        </section>
+
+        <!-- Cosa ho imparato -->
+        <section class="mb-5">
+            <div class="experience-card">
+                <div class="icon-box">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h2 class="section-title">🌱 Cosa ho imparato</h2>
+                <p>Questa esperienza mi ha lasciato tanto, sia sul piano personale che professionale.</p>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item">Ho acquisito fiducia in me stesso, imparando a gestire ruoli di responsabilità</li>
+                    <li class="list-group-item">Ho sviluppato competenze trasversali come l'organizzazione, la leadership e la comunicazione</li>
+                    <li class="list-group-item">Ho capito che la tecnologia ha senso solo se è al servizio delle persone, e non fine a sé stessa</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Collegamento al mio futuro -->
+        <section class="mb-5">
+            <div class="experience-card">
+                <div class="icon-box">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2 class="section-title">🎯 Collegamento al mio futuro</h2>
+                <p>L'esperienza in Loccioni ha rafforzato la mia volontà di proseguire su un percorso tecnico-scientifico in cui la componente umana sia centrale.</p>
+                <p>Sto infatti valutando facoltà come Ingegneria Biomedica o Medicina, proprio perché credo in un futuro dove la scienza e la tecnologia siano strumenti per migliorare concretamente la vita degli altri.</p>
+                <div class="text-center mt-4">
+                    <a href="../index.html" class="btn btn-custom">Torna alla Home</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p>© 2025 Il Mio Portfolio. Tutti i diritti riservati.</p>
+            <div class="social-links mt-3">
+                <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

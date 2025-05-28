@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Musica | Davide Licci</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #003366;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --transition: all 0.3s ease;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            background-color: #f5f7fa;
+        }
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--secondary) !important;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 100px 0 80px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto 50px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 50px 40px;
+            text-align: justify;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #333;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            position: relative;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            transition: color 0.3s ease;
+        }
+        .section-title:hover {
+            color: var(--accent);
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-indent: 1.5em;
+            transition: color 0.3s ease;
+        }
+        p:hover {
+            color: var(--accent);
+        }
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+        .social-links a {
+            color: white;
+            font-size: 1.3rem;
+            margin: 0 10px;
+            transition: var(--transition);
+        }
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .content-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Davide Licci</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Menu/PCTO.html">PCTO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Menu/Biografia.html">Biografia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Passioni/Passioni.html">Passioni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Menu/Progetti.html">Progetti</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Musica</h1>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <div class="content-section">
+        <p>La musica è una delle costanti più forti della mia vita. Non è solo una colonna sonora: è un filtro attraverso cui percepisco il mondo, un linguaggio che riesce a dire ciò che a volte non so esprimere. Ogni brano che ascolto diventa una specie di paesaggio mentale, un luogo in cui rifugiarmi, riflettere, ritrovarmi. Per me la musica è uno spazio intimo e personale, che però sa anche aprirmi agli altri.</p>
+        <p>Nel tempo ho sviluppato un gusto musicale preciso, che si muove tra l’indie, l’alternative rock e il lo-fi. Non mi interessano tanto le classifiche o le hit radiofoniche: cerco suoni che mi parlino in modo autentico, che trasmettano qualcosa di vero, anche (e soprattutto) nelle imperfezioni. Amo gli artisti che riescono a raccontare le fragilità, le confusioni, le paranoie della vita quotidiana con un tocco stralunato o malinconico.</p>
+        <p>Uno dei primi che mi ha colpito davvero è stato Mac DeMarco: quel suo stile rilassato, con chitarre riverberate e testi vagamente surreali, è diventato per me sinonimo di introspezione disincantata. Poi è arrivato Alex G, con il suo modo unico di piegare la voce, di sporcare le tracce, di far suonare tutto come se fosse stato registrato in una cameretta, ma con un’urgenza emotiva enorme. Ogni suo album è un puzzle emotivo, un’esperienza quasi cinematografica.</p>
+        <p>Anche i TV Girl mi hanno accompagnato in molti momenti, con il loro sound vintage e ipnotico, pieno di loop, campionamenti e storie d’amore sbagliate. Sono come una radio fuori tempo, che però trasmette sempre qualcosa che ti riguarda da vicino. E poi ci sono i giganti: Radiohead, Arctic Monkeys, Oasis. La capacità dei Radiohead di fondere sperimentazione e malinconia è qualcosa che ammiro profondamente. Ogni loro album è un viaggio che richiede ascolto attento e tempo per decantare.</p>
+        <p>Gli Arctic Monkeys mi hanno fatto scoprire il piacere della scrittura musicale curata, ironica e tagliente. L’album AM è una pietra miliare nella mia personale playlist notturna. Gli Oasis invece sono quel tipo di musica che ti fa venire voglia di camminare a caso per strada con le cuffiette, con Don't Look Back in Anger o Live Forever che ti risuonano dentro come un inno personale.</p>
+        <p>Non mi limito ad ascoltare: spesso costruisco playlist tematiche, quasi come se fossero colonne sonore della mia vita. Ci sono raccolte per i pomeriggi piovosi, per le serate tranquille, per le notti in cui non si dorme e per i viaggi solitari in treno. Mettere insieme i brani è un modo per dare un ordine alle emozioni, per capire meglio cosa sto provando.</p>
+        <p>In futuro mi piacerebbe approfondire anche il lato tecnico della musica: magari imparare a suonare qualcosa, o capire come si costruisce una traccia a livello di produzione. Ma per ora va bene così: la musica resta una cosa mia, personale, preziosa. Una forma d’arte che porto sempre con me, nelle cuffie o nella testa, pronta a cambiare forma a seconda del giorno.</p>
+        <p>E la cosa che amo di più è che non finisce mai. C’è sempre una nuova band da scoprire, una canzone che spunta quando meno te l’aspetti e ti prende per mano. Per me, la musica è questo: un viaggio costante. E non ho nessuna fretta di arrivare.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3>Contattami</h3>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2025 Davide Licci. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

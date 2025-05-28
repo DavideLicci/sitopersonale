@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Videogiochi | Davide Licci</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #003366;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --transition: all 0.3s ease;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            background-color: #f5f7fa;
+        }
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--secondary) !important;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 100px 0 80px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto 50px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 50px 40px;
+            text-align: justify;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #333;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            position: relative;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-indent: 1.5em;
+        }
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+        .social-links a {
+            color: white;
+            font-size: 1.3rem;
+            margin: 0 10px;
+            transition: var(--transition);
+        }
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .content-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Davide Licci</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Menu/PCTO.html">PCTO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Menu/Biografia.html">Biografia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Passioni/Passioni.html">Passioni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Menu/Progetti.html">Progetti</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Videogiochi</h1>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <div class="content-section">
+        <p>Per molti i videogiochi sono un semplice intrattenimento. Per me, sono molto di più: sono esperienze immersive, narrazioni interattive, strumenti per conoscere sé stessi e il mondo. Da quando ho tenuto in mano il mio primo controller, ho capito che stavo entrando in un universo dove ogni scelta, ogni movimento, ogni esplorazione poteva raccontare una storia. E dove io, per una volta, non ero solo spettatore, ma protagonista.</p>
+        <p>Nel corso degli anni ho sperimentato moltissimi titoli: giochi indie d’autore, saghe epiche, RPG pieni di trama, simulazioni e sandbox dove costruire mondi. Ognuno mi ha lasciato qualcosa. The Legend of Zelda: Breath of the Wild mi ha insegnato la bellezza della libertà e della scoperta. Life is Strange mi ha toccato nel profondo per la sua scrittura emotiva. The Last of Us mi ha fatto riflettere sulla fragilità umana e sull’importanza delle relazioni.</p>
+        <p>Non gioco mai in modo superficiale. Mi interesso anche al dietro le quinte: al game design, al ruolo della musica nel creare atmosfera, ai sistemi di scelta multipla che influenzano la trama. Trovo affascinante l'equilibrio tra immersione, interattività e tecnica, e negli ultimi anni ho iniziato ad approfondire anche gli aspetti più tecnici: intelligenza artificiale nei giochi, narrativa interattiva, design dell’esperienza utente.</p>
+        <p>Oltre alla dimensione narrativa, i videogiochi sono stati per me uno strumento di crescita personale. Mi hanno insegnato a ragionare in modo strategico, a collaborare online con persone da tutto il mondo, a gestire frustrazioni e sfide. In un certo senso, alcuni giochi mi hanno educato più di quanto sembri: non solo nel problem solving, ma anche nella comprensione dell’empatia e del punto di vista altrui.</p>
+        <p>Apprezzo anche il lato culturale dei videogiochi: come influenzano cinema, musica, arte. Alcuni titoli sono vere e proprie opere d’arte interattive, capaci di emozionare, denunciare, far riflettere. Sogno un giorno di poter partecipare alla creazione di un videogioco, magari scrivendo la sceneggiatura o progettando un sistema narrativo ramificato.</p>
+        <p>Fino ad allora, continuo a esplorare. Perché ogni nuovo gioco è una nuova possibilità. E ogni possibilità, una nuova parte di me che posso scoprire.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3>Contattami</h3>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2025 Davide Licci. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
