@@ -49,7 +49,11 @@
         
         /* Hero section con animazione fluida */
         .hero-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(rgba(0, 84, 180, 0.7), rgba(0, 51, 102, 0.7)), 
+                        url('https://images.logico.cloud/tmp/tt/0x0x0/media_thumbnail/a2878426-8653-4c2f-992e-257ba0feb2be.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: white;
             padding: 120px 0 100px;
             margin-bottom: 50px;
@@ -233,6 +237,21 @@
         
         .btn-custom:hover::after {
             animation: ripple 0.6s ease-out;
+        }
+        
+        /* Stile per il video */
+        .video-container {
+            margin: 40px 0;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
+            padding: 30px;
+            margin-bottom: 40px;
+            transition: var(--transition);
+            border-left: 3px solid var(--primary);
         }
         
         /* Footer pulito */
@@ -438,6 +457,28 @@
                     <a href="Progetti.html" class="btn btn-outline-primary">
                         <i class="fas fa-code me-1"></i> Vedi Progetti
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Video -->
+        <section class="mb-5">
+            <div class="experience-card">
+                <div class="icon-box">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h2 class="section-title">🎥 Il nostro progetto in azione</h2>
+                <p>Guarda il video della nostra esperienza presso Loccioni durante il progetto Convergenza 2023-2024:</p>
+                
+                <div class="ratio ratio-16x9 mt-4">
+                    <video controls poster="https://images.loccioni.com/share/891cafc1-0e79-4ee7-a10d-26de115dee12/convergenza-2023-2024">
+                        <source src="https://images.loccioni.com/share/891cafc1-0e79-4ee7-a10d-26de115dee12/convergenza-2023-2024" type="video/mp4">
+                        Il tuo browser non supporta il tag video.
+                    </video>
+                </div>
+                
+                <div class="highlight-box mt-4">
+                    <p><i class="fas fa-info-circle me-2"></i>Questo video mostra il lavoro svolto durante il progetto PCTO, con particolare attenzione alla parte di Pick and Place che abbiamo sviluppato.</p>
                 </div>
             </div>
         </section>

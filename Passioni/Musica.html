@@ -191,110 +191,6 @@
             margin-right: 5px;
             margin-bottom: 5px;
         }
-        .playlist-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            border-left: 4px solid var(--accent);
-        }
-        .playlist-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-        }
-        .playlist-title {
-            font-family: 'Playfair Display', serif;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-        .playlist-description {
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-        .spotify-embed {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            margin-top: 20px;
-        }
-        .timeline {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-        .timeline:before {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: var(--primary);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-        }
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-            margin-bottom: 30px;
-        }
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-        .timeline-content {
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: var(--shadow-sm);
-            position: relative;
-        }
-        .timeline-date {
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-        .timeline-item:nth-child(odd) .timeline-content:after {
-            content: '';
-            position: absolute;
-            right: -10px;
-            top: 20px;
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 10px solid white;
-        }
-        .timeline-item:nth-child(even) .timeline-content:after {
-            content: '';
-            position: absolute;
-            left: -10px;
-            top: 20px;
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-right: 10px solid white;
-        }
-        .timeline-circle {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: var(--accent);
-            top: 15px;
-            right: -10px;
-            z-index: 1;
-        }
-        .timeline-item:nth-child(even) .timeline-circle {
-            left: -10px;
-        }
         .quote-section {
             background: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
             padding: 100px 0;
@@ -400,26 +296,6 @@
             }
             .section-title {
                 font-size: 2rem;
-            }
-            .timeline:before {
-                left: 31px;
-            }
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-            .timeline-circle {
-                left: 21px;
-            }
-            .timeline-item:nth-child(odd) .timeline-content:after,
-            .timeline-item:nth-child(even) .timeline-content:after {
-                left: -10px;
-                border-right: 10px solid white;
-                border-left: 0;
             }
         }
     </style>
@@ -578,112 +454,6 @@
         </div>
     </section>
 
-    <!-- Playlists Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title text-center mb-5" data-aos="fade-down">Le Mie Playlist</h2>
-            
-            <div class="row">
-                <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
-                    <div class="playlist-card">
-                        <h3 class="playlist-title">Notti Insonni</h3>
-                        <p class="playlist-description">Per quelle notti in cui il sonno non arriva e la mente vaga tra ricordi e pensieri. Canzoni malinconiche ma non deprimenti, perfette per accompagnare il flusso dei pensieri notturni.</p>
-                        <div class="spotify-embed">
-                            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX3WvGXE8FqYX" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
-                    <div class="playlist-card">
-                        <h3 class="playlist-title">Pomeriggi Piovosi</h3>
-                        <p class="playlist-description">Quando la pioggia batte contro i vetri e il mondo sembra sospeso. Chitarre acustiche, melodie dolci e testi introspettivi che si fondono con il suono dell'acqua.</p>
-                        <div class="spotify-embed">
-                            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX3WvGXE8FqYX" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
-                    <div class="playlist-card">
-                        <h3 class="playlist-title">Viaggi in Treno</h3>
-                        <p class="playlist-description">Paesaggi che scorrono veloci oltre il finestrino, sconosciuti che salgono e scendono. Musica che accompagna i viaggi, sia quelli fisici che quelli mentali.</p>
-                        <div class="spotify-embed">
-                            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX3WvGXE8FqYX" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6" data-aos="fade-left" data-aos-delay="400">
-                    <div class="playlist-card">
-                        <h3 class="playlist-title">Energia Mattutina</h3>
-                        <p class="playlist-description">Per iniziare la giornata con il piede giusto. Brani vivaci ma non invadenti, che danno la carica senza essere opprimenti. Il caffè musicale perfetto.</p>
-                        <div class="spotify-embed">
-                            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX3WvGXE8FqYX" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Musical Journey Timeline -->
-    <section class="section section-dark">
-        <div class="container">
-            <h2 class="section-title text-center mb-5" data-aos="fade-down">La Mia Storia Musicale</h2>
-            
-            <div class="timeline">
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="timeline-circle"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2010 - Prime Scoperte</div>
-                        <p>I primi approcci alla musica attraverso la radio e i CD dei miei genitori. Scopro gli Oasis e i Beatles, che diventano la colonna sonora della mia preadolescenza.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="timeline-circle"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2014 - L'Esplorazione</div>
-                        <p>Inizio a cercare musica in modo più attivo. Scopro piattaforme come SoundCloud e Bandcamp, entrando in contatto con artisti indipendenti e underground.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="timeline-circle"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2016 - La Svolta</div>
-                        <p>Scopro Mac DeMarco e tutto il mondo dell'indie lo-fi. È una rivelazione: capisco che la musica può essere imperfetta, intima e profondamente personale.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="timeline-circle"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2018 - Approfondimento</div>
-                        <p>Inizio a costruire playlist tematiche e a documentarmi sulla produzione musicale. L'ascolto diventa più critico e consapevole.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
-                    <div class="timeline-circle"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2020 - Pandemia e Musica</div>
-                        <p>Durante il lockdown la musica diventa un rifugio ancora più importante. Scopro nuovi generi e artisti, tra cui Alex G, che diventa rapidamente uno dei miei preferiti.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
-                    <div class="timeline-circle"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">Oggi - Un Viaggio Continuo</div>
-                        <p>La musica resta una costante fondamentale. Continuo a esplorare, scoprire e costruire connessioni emotive attraverso le canzoni che ascolto.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Quote Section -->
     <section class="quote-section">
         <div class="quote-content" data-aos="zoom-in">
@@ -691,21 +461,6 @@
                 Senza la musica la vita sarebbe un errore.
             "</div>
             <div class="quote-author">- Friedrich Nietzsche</div>
-        </div>
-    </section>
-
-    <!-- Future Section -->
-    <section class="section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="content-box" data-aos="fade-up">
-                        <h2 class="section-title">Il Futuro Musicale</h2>
-                        <p>In futuro mi piacerebbe approfondire anche il lato tecnico della musica: magari imparare a suonare qualcosa, o capire come si costruisce una traccia a livello di produzione. Ma per ora va bene così: la musica resta una cosa mia, personale, preziosa. Una forma d'arte che porto sempre con me, nelle cuffie o nella testa, pronta a cambiare forma a seconda del giorno.</p>
-                        <p>E la cosa che amo di più è che non finisce mai. C'è sempre una nuova band da scoprire, una canzone che spunta quando meno te l'aspetti e ti prende per mano. Per me, la musica è questo: un viaggio costante. E non ho nessuna fretta di arrivare.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
