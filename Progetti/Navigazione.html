@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Navigazione Progetti | Davide Licci</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #003366;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            background-color: #f5f7fa;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--secondary) !important;
+            font-size: 1.5rem;
+        }
+        
+        /* Nuovo stile del menu come nella seconda pagina */
+        .navbar-nav .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--accent);
+        }
+        
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .navbar-toggler {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        
+        .navbar-toggler:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 120px 0 100px;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .hero-subtitle {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        .filter-container {
+            text-align: center;
+            margin: 60px 0;
+            position: relative;
+        }
+        .filter-container:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            z-index: -1;
+        }
+        .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: white;
+            padding: 18px 35px;
+            margin: 0 20px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            min-width: 250px;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+        }
+        .filter-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .filter-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .filter-btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        .filter-btn:hover:before {
+            left: 100%;
+        }
+        .filter-btn.active {
+            background-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0,86,179,0.3);
+        }
+        .project-type {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            padding: 50px;
+            margin: 60px auto;
+            text-align: center;
+            max-width: 800px;
+            position: relative;
+            transition: var(--transition);
+            border-top: 4px solid var(--accent);
+        }
+        .project-type:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        .project-type h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+        .project-type h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        .project-type:hover h2:after {
+            width: 70%;
+            left: 15%;
+        }
+        .project-type p {
+            color: var(--dark);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .project-type strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .decoration {
+            position: absolute;
+            opacity: 0.08;
+            z-index: -1;
+        }
+        .decoration.circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            top: -80px;
+            right: -80px;
+        }
+        .decoration.triangle {
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 173px solid var(--accent);
+            bottom: -80px;
+            left: -80px;
+            transform: rotate(15deg);
+        }
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 10px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+        @media (max-width: 992px) {
+            .filter-btn {
+                display: block;
+                margin: 15px auto;
+                width: 80%;
+                max-width: 300px;
+            }
+            .project-type {
+                padding: 30px;
+                margin: 40px 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .project-type h2 {
+                font-size: 1.8rem;
+            }
+            .decoration.circle,
+            .decoration.triangle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar modificata come nella seconda pagina -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Davide Licci</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Menu/PCTO.html">PCTO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Menu/Biografia.html">Biografia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Passioni/Passioni.html">Passioni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="Progetti/Navigazione.html">Progetti</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container hero-content">
+            <h1 class="hero-title" data-aos="fade-up">I Miei Progetti</h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">Un percorso tra competenze tecniche e sensibilità umanistica</p>
+        </div>
+    </section>
+
+    <!-- Projects Navigation -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="filter-container" data-aos="fade-up">
+                <a href="Umanistici.html" class="filter-btn" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-book-open"></i> Progetti Umanistici
+                </a>
+                <a href="Tecnici.html" class="filter-btn" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-code"></i> Progetti Tecnici
+                </a>
+            </div>
+            
+            <div class="project-type" data-aos="fade-up" data-aos-delay="300">
+                <div class="decoration circle"></div>
+                <div class="decoration triangle"></div>
+                <h2>Esplora le Mie Realizzazioni</h2>
+                <p>Seleziona una categoria per scoprire i progetti completi con descrizioni dettagliate e materiali scaricabili.</p>
+                <p>I <strong>progetti umanistici</strong> includono analisi letterarie, storiche e artistiche, con approcci interdisciplinari che collegano cultura, arte e filosofia.</p>
+                <p>I <strong>progetti tecnici</strong> mostrano invece le mie competenze nello sviluppo software, nella creazione di applicazioni web e nella risoluzione di problemi informatici complessi.</p>
+                <p>Questa dualità riflette il mio percorso formativo che unisce la formazione tecnica dell'ITI con gli interessi umanistici.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links mb-4">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>© 2024 Davide Licci. Tutti i diritti riservati.</p>
+            <p class="mt-2">I.I.S. MARCONI-PIERALISI - I.T.I. Marconi/Informatica</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

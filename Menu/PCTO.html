@@ -50,7 +50,7 @@
         /* Hero section con animazione fluida */
         .hero-section {
             background: linear-gradient(rgba(0, 84, 180, 0.7), rgba(0, 51, 102, 0.7)), 
-                        url('https://images.logico.cloud/tmp/tt/0x0x0/media_thumbnail/a2878426-8653-4c2f-992e-257ba0feb2be.jpg');
+                        url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -239,19 +239,42 @@
             animation: ripple 0.6s ease-out;
         }
         
-        /* Stile per il video */
-        .video-container {
-            margin: 40px 0;
+        /* Stile per le immagini */
+        .img-container {
+            margin: 30px 0;
+            text-align: center;
         }
         
-        .video-card {
-            background: white;
+        .img-container img {
+            max-width: 100%;
             border-radius: 8px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
-            padding: 30px;
-            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
-            border-left: 3px solid var(--primary);
+        }
+        
+        .img-container img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .img-caption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #6c757d;
+        }
+        
+        .img-placeholder {
+            background: #f0f0f0;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .img-placeholder i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 10px;
         }
         
         /* Footer pulito */
@@ -366,6 +389,28 @@
             </div>
         </section>
 
+        <!-- Storia di Loccioni -->
+        <section class="mb-5">
+            <div class="experience-card">
+                <div class="icon-box">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h2 class="section-title">🏭 La storia di Loccioni</h2>
+                <p>Loccioni è un'azienda nata nel 1968 dalla visione di Enrico Loccioni, un imprenditore che ha saputo coniugare innovazione tecnologica e valori umani. Partita come piccola officina meccanica, oggi è un'eccellenza internazionale nel campo dell'automazione industriale e della misurazione di precisione.</p>
+                
+                <p>Ciò che rende speciale Loccioni è la sua filosofia basata su tre pilastri fondamentali:</p>
+                <ul>
+                    <li><strong>Innovazione:</strong> Sviluppo costante di nuove tecnologie e soluzioni</li>
+                    <li><strong>Sostenibilità:</strong> Attenzione all'ambiente e al territorio</li>
+                    <li><strong>Comunità:</strong> Valorizzazione delle persone e delle relazioni</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <p>Durante la mia esperienza, ho potuto toccare con mano questa filosofia, che permea ogni aspetto del lavoro in azienda, dai progetti più complessi alle relazioni quotidiane tra colleghi.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Obiettivi e ruolo -->
         <section class="mb-5">
             <div class="experience-card">
@@ -460,28 +505,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Sezione Video -->
-        <section class="mb-5">
-            <div class="experience-card">
-                <div class="icon-box">
-                    <i class="fas fa-video"></i>
-                </div>
-                <h2 class="section-title">🎥 Il nostro progetto in azione</h2>
-                <p>Guarda il video della nostra esperienza presso Loccioni durante il progetto Convergenza 2023-2024:</p>
-                
-                <div class="ratio ratio-16x9 mt-4">
-                    <video controls poster="https://images.loccioni.com/share/891cafc1-0e79-4ee7-a10d-26de115dee12/convergenza-2023-2024">
-                        <source src="https://images.loccioni.com/share/891cafc1-0e79-4ee7-a10d-26de115dee12/convergenza-2023-2024" type="video/mp4">
-                        Il tuo browser non supporta il tag video.
-                    </video>
-                </div>
-                
-                <div class="highlight-box mt-4">
-                    <p><i class="fas fa-info-circle me-2"></i>Questo video mostra il lavoro svolto durante il progetto PCTO, con particolare attenzione alla parte di Pick and Place che abbiamo sviluppato.</p>
-                </div>
-            </div>
-        </section>
     </div>
 
     <!-- Footer -->
@@ -533,6 +556,16 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+            });
+        });
+
+        // Fallback per immagini mancanti
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if(img.naturalWidth === 0) {
+                    img.src = 'https://via.placeholder.com/800x500?text=Immagine+non+disponibile';
+                }
             });
         });
     </script>
